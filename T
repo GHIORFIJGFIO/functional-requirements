@@ -1,0 +1,53 @@
+class Task:
+    def __init__(self, title, description, due_date, is_favorite=False):
+        self.title = title
+        self.description = description
+        self.due_date = due_date
+        self.is_favorite = is_favorite
+        self.is_completed = False
+
+    def edit_task(self, title=None, description=None, due_date=None):
+        if title:
+            self.title = title
+        if description:
+            self.description = description
+        if due_date:
+            self.due_date = due_date
+
+    def mark_as_favorite(self):
+        self.is_favorite = True
+
+    def mark_as_completed(self):
+        self.is_completed = True
+
+    def __str__(self):
+        status = "Completed" if self.is_completed else "Pending"
+        favorite = "★" if self.is_favorite else ""
+        return f"{self.title} ({status}) {favorite}"
+
+class TaskManager:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def delete_task(self, task):
+        self.tasks.remove(task)
+
+    def view_tasks(self):
+        for task in self.tasks:
+            print(task)
+
+# Пример использования
+task_manager = TaskManager()
+task1 = Task("Buy tickets", "Buy tickets for the concert", "2024-09-20")
+task_manager.add_task(task1)
+
+task2 = Task("Doctor appointment", "Visit the doctor for a check-up", "2024-09-21")
+task_manager.add_task(task2)
+
+task1.mark_as_favorite()
+task2.mark_as_completed()
+
+task_manager.view_tasks()
